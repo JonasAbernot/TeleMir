@@ -1,4 +1,4 @@
-from TeleMir.analyses.relays import Transmitter
+from TeleMir.analyses.relays import Transmitter,Receiver
 
 from pyacq import StreamHandler, FakeMultiSignals
 from pyqtgraph.Qt import QtGui, QtCore
