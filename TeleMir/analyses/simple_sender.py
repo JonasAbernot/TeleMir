@@ -34,7 +34,7 @@ def test():
 
     trans.start()
 
-    time.sleep(10.)
+    time.sleep(50.)
 
     trans.stop()
     

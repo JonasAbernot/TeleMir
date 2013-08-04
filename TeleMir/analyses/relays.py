@@ -99,3 +99,34 @@ class Transmitter:
         self.stop_flag.value = 1
         self.process.join()
         print 'DataTransmitter stoped:', self.name
+
+
+def receiverMainLoop(stop_flag,in_stream,out_stream):
+    pass
+
+class Receiver:
+    
+    def __init__(self,in_ip,in_port,in_sampling_rate,stream_handler):
+        self.stream_handler=stream_handler
+
+        #initialisation of in_stream
+        self.in_ip=in_ip
+        self.in_port=in_port
+        self.in_sampling_rate=in_sampling_rate
+        self.initialize_in_stream
+    
+    def initialize_out_stream(self):
+        self.out_sampling_rate=self.in_sampling_rate
+        self.out_stream = self.stream_handler.new_signals_stream()
+
+    def initialize_in_stream(self):
+        self.in_stream = self.stream_handler.new_data_stream(ip=self.in_ip,
+                                                             port=self.in_port,
+                                                             sampling_rate=self.in_sampling_rate,
+                                                             )
+
+    def start(self):
+        pass
+    
+    def stop(self):
+        pass
