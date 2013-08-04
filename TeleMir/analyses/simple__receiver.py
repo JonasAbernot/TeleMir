@@ -22,7 +22,7 @@ def testRcvLoop(stop_rcv):
     print 'End of recepythion'
 
 def test():
-    app=QtGui.QApplication([])
+
 
     stop_rcv = mp.Value('i',1)
     process = mp.Process(target= testRcvLoop, args = (stop_rcv,))
@@ -31,8 +31,8 @@ def test():
     stop_rcv.value = 0
     process.join()
 
-    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
-        QtGui.QApplication.instance().exec_()
+
+
 
 
 if __name__ == '__main__':
