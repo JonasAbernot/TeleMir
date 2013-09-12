@@ -12,7 +12,7 @@ def testRcvLoop(stop_rcv):
     print 'Begin of reception'
     context=zmq.Context()
     rec_socket=context.socket(zmq.SUB)
-    rec_socket.connect('tcp://localhost:5656')
+    rec_socket.connect('tcp://192.168.1.43:5656')
     rec_socket.setsockopt(zmq.SUBSCRIBE,'')
     while stop_rcv.value:
         pack=rec_socket.recv()
@@ -36,6 +36,8 @@ def test():
                                 )
     dev.initialize()
     
+    print dev.streams[0]
+
     trans=Transmitter(in_stream=dev.streams[0],
                       out_ip='*',
                       out_port=5656,
@@ -48,6 +50,7 @@ def test():
 
     stop_rcv = mp.Value('i',1)
     process = mp.Process(target= testRcvLoop, args = (stop_rcv,))
+
     process.start()
     time.sleep(2.)
     stop_rcv.value = 0

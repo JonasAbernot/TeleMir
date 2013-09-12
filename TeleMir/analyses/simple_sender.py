@@ -10,7 +10,6 @@ import multiprocessing as mp
 
 
 def test():
-    app=QtGui.QApplication([])
 
     streamhandler = StreamHandler()
     
@@ -40,9 +39,6 @@ def test():
     
     dev.stop()
     dev.close()
-
-    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
-        QtGui.QApplication.instance().exec_()
 
 
 if __name__ == '__main__':

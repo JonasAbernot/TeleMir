@@ -75,8 +75,8 @@ class Oscilloscope(pw.PyQtGraphicsWorker):
     def updatePlots(self):
         for i in self.channels:
             self.c[i].clear()
-            self.c[i].setData((self.data[i] - self.means[i]) * self.gains[i] + self.channels.index(i)*1.1)
-      
+            self.c[i].setData((self.data[i] - self.means[i]) * self.gains[i] + self.channels.index(i)*1.1,antialias=False)
+#            self.c[i].setData(self.data[i])
 
     #mise à jour de l'échelle
     def updateScale(self):
@@ -231,7 +231,7 @@ class ScanningOscilloscope(pw.PyQtGraphicsWorker):
                              ) + self.channels.index(i)*1.1
             
             self.c[i][self.currentSegment].clear()
-            self.c[i][self.currentSegment].setData(x=x,y=y)
+            self.c[i][self.currentSegment].setData(x=x,y=y,antialias=False)
             
 
 

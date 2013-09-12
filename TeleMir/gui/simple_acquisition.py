@@ -7,9 +7,10 @@
 Very simple acquisition with a fake multi signal device.
 
 """
-from TeleMir.gui import ScanningOscilloscope,KurtosisGraphics,KurtosisGraphicsSci,SpectrumGraphics,freqBandsGraphics,glSpaceShip,Oscilloscope
+from TeleMir.gui import freqBandsGraphics, Oscilloscope
 
 from pyacq import StreamHandler, FakeMultiSignals
+from pyacq.gui import Oscilloscope as Oscillo
 from pyqtgraph.Qt import QtGui, QtCore
 import zmq
 import msgpack
@@ -27,7 +28,7 @@ def test1():
     dev = FakeMultiSignals(streamhandler = streamhandler)
     dev.configure( name = 'Test dev',
                                 nb_channel = 14,
-                                sampling_rate =1000.,
+                                sampling_rate =128.,
                                 buffer_length = 6.4,
                                 packet_size = 1,
                                 )
@@ -41,10 +42,11 @@ def test1():
 
     #initialize plots
     
- #   w1 = ScanningOscilloscope(dev.streams[0],2.,channels=[0])
-#    w2 = Oscilloscope(dev.streams[0],2.,channels=[0,1,2])
-    w1 = glSpaceShip(dev.streams[0])
-   # w1 = freqBandsGraphics(dev.streams[0],5.,channels=[1])
+    w1 = Oscilloscope(dev.streams[0],3.,channels=range(14))
+#    w1 = Oscilloscope(dev.streams[0],2.,channels=[0,1,2])
+#    w1=Oscillo(dev.streams[0])
+#   w1 = glSpaceShip(dev.streams[0])
+    #w1 = freqBandsGraphics(dev.streams[0],5.,channels=range(14))
   #  w1 = SpectrumGraphics(dev.streams[0],2.,logMode=True,channels=range(2))
   #  w1 = SpectrumGraphics(dev.streams[0],2.,logMode=True,channels=range(14),octavMode=True,octaveRan=1.26)
     
@@ -52,8 +54,8 @@ def test1():
     
 #    w1.setFixedSize(600,600)
     #start plots
+#    w1.show()
     w1.run()
-   # w2.run()
 
 #    timer=QtCore.QTimer()
 #    timer.timeout.connect(w1.update)
@@ -61,9 +63,12 @@ def test1():
 
    # w2.run()    
 
-    w1.showFullScreen()
+    #w1.showFullScreen()
     #When you close the window the fake device stop emmiting
+
+#    time.sleep(10)
     w1.connect(w1,QtCore.SIGNAL("fermeturefenetre()"),dev.stop)
+ #   dev.stop()
     dev.close()
 
     if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
